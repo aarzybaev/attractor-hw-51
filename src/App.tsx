@@ -1,33 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import Circle from './Circle/Circle.tsx';
+import {useState} from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const [numbers, setNumbers] = useState([5, 11, 16, 23, 32]);
+
+  const rndNumbers = () => {
+    const randomInteger = (min:number, max:number) => {    
+    let rand = min + Math.random() * (max + 1 - min);
+      return Math.floor(rand);
+    };
+  
+    const newRnd = new Array(5).fill(0);
+    let rndNumber = 0;
+    let i = 0;
+
+    while (newRnd.includes(0)) {
+      rndNumber = randomInteger(5, 36);
+      if (!newRnd.includes(rndNumber)) {
+        newRnd[i] = rndNumber;
+        i++;
+      }
+    }
+    
+    setNumbers(newRnd.sort((a:number, b:number) => a - b));
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="App">
+        <div className='circle-block'>
+          <Circle number={numbers[0]} />
+          <Circle number={numbers[1]} />
+          <Circle number={numbers[2]} />
+          <Circle number={numbers[3]} />
+          <Circle number={numbers[4]} />          
+        </div>
+        <div><button className='btn' onClick={rndNumbers}>Generate</button></div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
