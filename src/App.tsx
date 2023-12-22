@@ -1,6 +1,6 @@
 
 import './App.css'
-import Circle from './Circle/Circle.tsx';
+import Circle from './Circle/Circle';
 import {useState} from 'react';
 
 function App() {
